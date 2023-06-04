@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mobile Video Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("bg1.jpg");
+            background-blend-mode: lighten;
+            background-color: rgba(250, 128, 114, 0.61);
+            /* background-size: cover; */
+            background-repeat: no-repeat;
+        }
+
+        #playButton {
+            position: fixed;
+            top: 64%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background-color: rgba(250, 128, 114, 0.61);
+            color: rgb(160, 5, 5);
+            font-family: monospace;
+            font-size: 150%;
+            border: none;
+            border-radius: 10em;
+        }
+
+        #videoContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        #videoPlayer {
+            width: 100%;
+            height: 100%;
+        }
+
+        #birthdayText {
+            text-align: center;
+            margin-top:50%;
+            color: #ffffff; 
+            font-size: 200%;
+            background-color: rgba(250, 128, 114, 0.61);
+        }
+
+        #birthdayText .highlight {
+            font-size: 48px;
+            color: rgb(220, 15, 15); /* Set the text color to red */
+        }
+    </style>
+</head>
+<body>
+    <h2 id="birthdayText">
+        <span id="birthdayMessage"></span><br>
+        <span class="highlight" id="highlightText"></span>
+    </h2>
+    <button id="playButton">Play Video</button>
+    <div id="videoContainer">
+        <video id="videoPlayer" controls>
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        document.getElementById("playButton").addEventListener("click", function() {
+            var videoContainer = document.getElementById("videoContainer");
+            var videoPlayer = document.getElementById("videoPlayer");
+            
+            videoContainer.style.display = "block";
+            videoPlayer.play();
+        });
+
+        // Typing effect
+        var birthdayMessageElement = document.getElementById("birthdayMessage");
+        var highlightTextElement = document.getElementById("highlightText");
+        var birthdayMessage = "Happy Birthday ";
+        var highlightText = "CHERRY!!!";
+        var delay = 100; // Delay between each character (in milliseconds)
+
+        function typeText() {
+            var messageIndex = 0;
+            var highlightIndex = 0;
+            var typingInterval = setInterval(function() {
+                if (messageIndex < birthdayMessage.length) {
+                    birthdayMessageElement.textContent += birthdayMessage[messageIndex];
+                    messageIndex++;
+                } else if (highlightIndex < highlightText.length) {
+                    highlightTextElement.textContent += highlightText[highlightIndex];
+                    highlightIndex++;
+                } else {
+                    clearInterval(typingInterval);
+                    setTimeout(function() {
+                        birthdayMessageElement.textContent = "";
+                        highlightTextElement.textContent = "";
+                        typeText();
+                    }, 2000); // Delay before starting the next iteration
+                }
+            }, delay);
+        }
+
+        typeText();
+    </script>
+</body>
+</html>
